@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Avvertix\VendorPrune\Support\Package;
+use Avvertix\VendorPrune\Support\Path;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
@@ -30,14 +31,16 @@ class PruneCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $pruneMethod = !!$input->getOption('dry-run') ? 'pruneDryRun' : 'prune';
-        $vendorFolder = $input->getOption('vendor-folder') ?? __DIR__ . '/../../vendor';
+        $vendorFolder = $input->getOption('vendor-folder') ?? Path::path('vendor');
 
         if(!is_dir($vendorFolder)){
             throw new InvalidArgumentException("Given vendor folder [$vendorFolder] does not exists");
         }
 
+        $output->writeln("Pruning [$vendorFolder]...");
+        
         $packages = Package::load($vendorFolder);
-
+        
         foreach ($packages as $package) {
             list($testPruneSize, $testPruneCount, $testPruneFiles, $testPrune) = $package->$pruneMethod();
 
@@ -48,6 +51,10 @@ class PruneCommand extends Command
                     $output->writeln("-- $file");
                 }
             }
+        }
+
+        if($packages->isEmpty()){
+            $output->writeln("No packages to prune found in [$vendorFolder].");
         }
         
     }

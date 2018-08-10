@@ -9,7 +9,7 @@ require __DIR__.'/../vendor/autoload.php';
 use Avvertix\VendorPrune\Commands\PruneCommand;
 use Symfony\Component\Console\Application;
 
-$application = new Application('vendor prune', '0.1.0');
+$application = new Application('vendor prune', '@git_tag@-@git_commit_short@');
 
 $pruneCommand = new PruneCommand();
 
