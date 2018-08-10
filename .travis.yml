@@ -25,3 +25,16 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit
+
+before_deploy:
+  - curl -o box.phar https://github.com/humbug/box/releases/download/3.0.0-RC.0/box.phar
+  - php -d phar.readonly=0 box.phar
+
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: bin/vendor-prune.phar
+  skip_cleanup: true
+  on:
+    tags: true
+    php:  '7.1'
