@@ -3,7 +3,7 @@
     "description": "Clean the PHP Composer vendor folder from files not needed in production",
     "type": "library",
     "license": "MIT",
-    "bin": "bin/vendor-prune",
+    "bin": ["bin/vendor-prune"],
     "authors": [
         {
             "name": "Alessio",

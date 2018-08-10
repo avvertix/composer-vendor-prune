@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/avvertix/composer-vendor-prune.svg?branch=master)](https://travis-ci.org/avvertix/composer-vendor-prune)
+
 # Composer Prune
 
 > Clean the PHP [Composer](https://getcomposer.org/) `vendor` folder from files not needed in production
@@ -11,8 +13,8 @@ Execute
 
 ```bash
 vendor-prune.phar [--dry-run]
-# symfony/console 882.97KB => 22.67KB 2.57%\r\n
-# symfony/finder 135.02KB => 2.78KB 2.06%\r\n
+# symfony/console 882.97KB => 22.67KB 2.57%
+# symfony/finder 135.02KB => 2.78KB 2.06%
 ```
 
 **options**
