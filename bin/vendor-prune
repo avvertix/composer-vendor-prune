@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+error_reporting(E_ALL);
+
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Avvertix\VendorPrune\Commands\PruneCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application('vendor prune', '0.1.0');
+
+$pruneCommand = new PruneCommand();
+
+$application->add($pruneCommand);
+
+$application->setDefaultCommand($pruneCommand->getName(), true);
+
+$application->run();

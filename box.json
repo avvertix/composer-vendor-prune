@@ -1,0 +1,7 @@
+{
+    "blacklist": [
+        "box.phar",
+        "box.json",
+        "tests/*"
+    ]
+}
