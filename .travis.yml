@@ -27,6 +27,9 @@ script:
   - ./vendor/bin/phpunit
 
 before_deploy:
+  # make sure git tests do not complain about user/email not being set
+  - git config --global user.name travis-ci
+  - git config --global user.email travis@example.com
   - curl -L -o box.phar https://github.com/humbug/box/releases/download/3.0.0-RC.0/box.phar
   - php -d phar.readonly=0 box.phar compile
 
