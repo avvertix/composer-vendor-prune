@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/avvertix/composer-vendor-prune.svg?branch=master)](https://travis-ci.org/avvertix/composer-vendor-prune)
+[![Build Status](https://travis-ci.com/avvertix/composer-vendor-prune.svg?branch=master)](https://travis-ci.com/avvertix/composer-vendor-prune)
 
 # Composer Prune
 
