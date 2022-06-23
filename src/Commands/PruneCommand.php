@@ -42,6 +42,11 @@ class PruneCommand extends Command
         $packages = Package::load($vendorFolder);
         
         foreach ($packages as $package) {
+            if (!$package->isValid()) {
+                $output->writeln("$package->name - SKIP Isn't valid");
+                continue;
+            }
+
             list($testPruneSize, $testPruneCount, $testPruneFiles, $testPrune) = $package->$pruneMethod();
 
             $output->writeln("$package->name $testPrune");
