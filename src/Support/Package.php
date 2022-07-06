@@ -19,6 +19,11 @@ final class Package extends Fluent
     private $size = null;
 
     /**
+     * @var bool
+     */
+    private $isValid = false;
+
+    /**
      * Create a new package instance.
      *
      * @param  string   $vendorPath the path to the vendor folder that contains the package
@@ -32,11 +37,17 @@ final class Package extends Fluent
         }
         parent::__construct($attributes);
         $this->path = rtrim($vendorPath, '/') . "/$this->name";
+        $this->isValid = isset($attributes['name']) && is_dir($this->path);
     }
 
     public function path()
     {
         return $this->path;
+    }
+
+    public function isValid()
+    {
+        return $this->isValid;
     }
 
     /**
@@ -70,7 +81,8 @@ final class Package extends Fluent
         $packages = collect();
 
         if(is_file("$path/composer/installed.json")){
-            $packages = $packages->merge(json_decode(\file_get_contents("$path/composer/installed.json"), true));
+            $installed = json_decode(\file_get_contents("$path/composer/installed.json"), true);
+            $packages = $packages->merge(isset($installed['packages']) ? $installed['packages'] : $installed);
         }
 
         return $packages->map(function($p) use($vendorPath) {
